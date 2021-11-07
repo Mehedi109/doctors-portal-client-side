@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
 } from 'firebase/auth';
 
 // initialize firebase app
@@ -26,6 +27,12 @@ const useFirebase = () => {
         setAuthError('');
         const newUser = { email, displayName: name };
         setUser(newUser);
+        // set name to firebase after creation
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {})
+          .catch((error) => {});
         history.replace('/');
       })
       .catch((error) => {
