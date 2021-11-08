@@ -229,7 +229,7 @@ const BookingModal = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data._id) {
+        if (data.insertedId) {
           setBookingSuccess(true);
           handleBookingClose();
         }

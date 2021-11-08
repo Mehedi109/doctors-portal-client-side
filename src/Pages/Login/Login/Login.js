@@ -76,7 +76,7 @@ const Login = () => {
           </Button>
           {isLoading && <CircularProgress />}
           {user.email && (
-            <Alert severity="success">User created successfully!</Alert>
+            <Alert severity="success">Login successfully!</Alert>
           )}
           {authError && <Alert severity="error">{authError}</Alert>}
         </Grid>
