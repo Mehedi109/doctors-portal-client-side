@@ -8,7 +8,7 @@ import {
   Alert,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../../images/login.png';
 import useAuth from '../../../hooks/useAuth';
 
@@ -17,7 +17,7 @@ const Login = () => {
   const { user, loginUser, signInWithGoogle, isLoading, authError } = useAuth();
 
   const location = useLocation();
-  const history = useHistory();
+  const history = useNavigate();
 
   const handleOnChange = (e) => {
     const field = e.target.name;
@@ -75,9 +75,7 @@ const Login = () => {
             Google Sign In
           </Button>
           {isLoading && <CircularProgress />}
-          {user.email && (
-            <Alert severity="success">Login successfully!</Alert>
-          )}
+          {user.email && <Alert severity="success">Login successfully!</Alert>}
           {authError && <Alert severity="error">{authError}</Alert>}
         </Grid>
         <Grid item xs={12} md={6}>

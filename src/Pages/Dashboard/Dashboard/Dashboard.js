@@ -18,18 +18,8 @@ import Typography from '@mui/material/Typography';
 import { Button, Grid } from '@mui/material';
 import Calendar from '../../Shared/Calendar/Calendar';
 import Appointments from '../Appointments/Appointments';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-} from 'react-router-dom';
-import DashboardHome from '../DashboardHome/DashboardHome';
-import MakeAdmin from '../MakeAdmin/MakeAdmin';
-import AddDoctor from '../AddDoctor/AddDoctor';
+import { Outlet, Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
-import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 
 const drawerWidth = 200;
 
@@ -37,7 +27,6 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  let { path, url } = useRouteMatch();
   const { admin } = useAuth();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -50,15 +39,15 @@ function Dashboard(props) {
       <Link to="/appointment">
         <Button color="inherit">Appointment</Button>
       </Link>
-      <Link to={`${url}`}>
+      <Link to="/dashboard">
         <Button color="inherit">Dashboard</Button>
       </Link>
       {admin && (
         <Box>
-          <Link to={`${url}/makeAdmin`}>
+          <Link to={`/dashboard/makeAdmin`}>
             <Button color="inherit">Make Admin</Button>
           </Link>
-          <Link to={`${url}/addDoctor`}>
+          <Link to={`/dashboard/addDoctor`}>
             <Button color="inherit">Add Doctor</Button>
           </Link>
         </Box>
@@ -151,17 +140,7 @@ function Dashboard(props) {
         }}
       >
         <Toolbar />
-        <Switch>
-          <Route exact path={path}>
-            <DashboardHome></DashboardHome>
-          </Route>
-          <AdminRoute path={`${path}/makeAdmin`}>
-            <MakeAdmin></MakeAdmin>
-          </AdminRoute>
-          <AdminRoute path={`${path}/addDoctor`}>
-            <AddDoctor></AddDoctor>
-          </AdminRoute>
-        </Switch>
+        <Outlet></Outlet>
       </Box>
     </Box>
   );
